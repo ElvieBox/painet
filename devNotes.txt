@@ -1,0 +1,23 @@
+
+To Do:
+  - CustomAF
+  - Finish Instructions
+  - Convert Intructions to Markdown and put into README
+  - Rework the ReadyAI and figure out how that system currently works and what would be better
+  - Figure out an actual use case and make an example environnment
+
+
+CustomAF:
+  - Could have a user submit their own function instead of having sigmoid stuff
+  - Might be a pain to implement though
+  *> AF's could be from dict with a string pairing to the function itself
+  *> Custom AF's would just have to be appended to the list and have the function available to the scope in question
+  *  It IS like that already, now just the scope issue
+
+   Note: Has to be accessible from both the environment and when using just the brain
+
+-- will the mutation happen only after they are set up, actually, that might be ok
+-- comments should be no longer than 72 char, go onto next line if neeeded
+-- can put triple quotes at the start of a script/class/function/anything to make it the __doc__ and in help(arg)
+-- https://realpython.com/documenting-python-code/
+-- 72 chr does not include spaces
