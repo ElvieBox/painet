@@ -536,7 +536,7 @@ class Environment():
 #----------------------------------------------------------------------------------
 
 
-
+# Note: A crushed version of this is also in the Brain Class as defaultNetwork (for independency)
 blankNetwork = [
     {
         "inputs": [],
@@ -593,6 +593,11 @@ exampleNetwork = [
 class Brain():
     """NOTE: This class can be imported alongside the deepCopy() function and used completely seperate from the rest of the module"""
 
+
+    defaultNetwork = [
+        {"inputs": [], "hiddenAF": "step", "outputAF": "mirroredStep"}, 
+        [], [], []
+    ]
   
     # Neuron Class
     #=============
@@ -617,7 +622,7 @@ class Brain():
   
     # NeuralNetwork Setup
     #========================
-    def __init__(self, network=blankNetwork, best=False):
+    def __init__(self, network=defaultNetwork, best=False):
         #(math.exp for sigmoid function)
         from math import exp
         self.exp = exp
@@ -708,6 +713,20 @@ class Brain():
         network.append(self.deepCopy(self.Network[-1]))
         return network
     
+    def prettyPrintNet(self, doPrint=False):
+        net = self.network()
+        ppNet = ""
+        for layer in net[1:]:
+            ppNet = ppNet + "[" + "\n"
+            for neuron in layer:
+                ppNet = ppNet + "    " + str(neuron) + "\n"
+            ppNet = ppNet + "]," + "\n"
+        if doPrint:       # p = do print
+            print(ppNet)
+        return ppNet
+
+
+    
     
     
     
@@ -759,14 +778,6 @@ def deepCopy(IN):
     return OUT
 
 
-def printNet(net):
-    ppNet = ""
-    for layer in net[1:]:
-        ppNet = ppNet + "[" + "\n"
-        for neuron in layer:
-            ppNet = ppNet + "    " + str(neuron) + "\n"
-        ppNet = ppNet + "]," + "\n"
-    return ppNet
 
 
 

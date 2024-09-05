@@ -2,24 +2,8 @@ import painet as pn
 
 brain = pn.Brain(pn.exampleNetwork)
 
-blankNetwork = [
-    {
-        "inputs": [],
-        "hiddenAF": "step",
-        "outputAF": "mirroredStep",
-    },
-    [
-        # Hidden Neurons (anything between the header and the possible outputs)
-    ],
-    [
-        # Output Neurons 
-    ],
-    [
-        # Possible Outputs
-    ]
-]
 
-print(brain.Network)
+brain.prettyPrintNet(True)
 
 
 # maybe make the af's seperate from the brain
