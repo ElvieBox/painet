@@ -28,3 +28,4 @@ print(brain.Network)
 
 # BIG NOTE: Brain init now uses blank network, which is not included in Brain
 # This makes it reliant on the rest
+# Might be able to fix by having a "generate blank" function
