@@ -1,0 +1,4 @@
+
+def __init__(self, network, best=False):
+    ->
+def __init__(self, network=blankNetwork, best=False):

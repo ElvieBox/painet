@@ -19,7 +19,7 @@ Notes:
 NeuroEvolution
 
 Make a point to convey that the score should be of two parts
-    A - A really high but static number that determines if it made it
+  A - A really high but static number that determines if it made it
   B - A smaller variable score to how close or what you want it to improve at
 
 """
@@ -528,6 +528,66 @@ class Environment():
 
 
 
+
+
+
+
+
+#----------------------------------------------------------------------------------
+
+
+
+blankNetwork = [
+    {
+        "inputs": [],
+        "hiddenAF": "step",
+        "outputAF": "mirroredStep",
+    },
+    [
+        # Hidden Neurons (anything between the header and the possible outputs)
+    ],
+    [
+        # Output Neurons 
+    ],
+    [
+        # Possible Outputs
+    ]
+]
+
+
+exampleNetwork = [
+    {
+        "inputs": ["food_x", "food_y", "blob_x", "blob_y"],
+        "hiddenAF": "step",
+        "outputAF": "mirroredStep",
+    },
+    [
+        {"id": "aaa", "weights": {'food_x': 1}},
+        {"id": "bbb", "weights": {'food_y': 1}},
+        {"id": "ccc", "weights": {'food_x': -1}},
+        {"id": "ddd", "weights": {'food_y': -1}},
+    ],
+    [
+        {"id": "move_right", "weights": {'aaa': 1}},
+        {"id": "move_left", "weights": {'ccc': 1}},
+        {"id": "move_up", "weights": {'bbb': 1}},
+        {"id": "move_down", "weights": {'ddd': 1}},
+    ],
+    [
+        {"id": "move_horizontally", "weights": {'move_right': 1, "move_left": -1}},
+        {"id": "move_vertically", "weights": {'move_up': 1, "move_down": -1}},
+    ],
+    [
+        "move_vertically",
+        "move_horizontally"
+    ]
+]
+
+
+
+
+
+
 #----------------------------------------------------------------------------------
 
 class Brain():
@@ -557,7 +617,7 @@ class Brain():
   
     # NeuralNetwork Setup
     #========================
-    def __init__(self, network, best=False):
+    def __init__(self, network=blankNetwork, best=False):
         #(math.exp for sigmoid function)
         from math import exp
         self.exp = exp
@@ -710,50 +770,3 @@ def printNet(net):
 
 
 
-#----------------------------------------------------------------------------------
-
-blankNetwork = [
-    {
-        "inputs": [],
-        "hiddenAF": "step",
-        "outputAF": "mirroredStep",
-    },
-    [
-        # Hidden Neurons (anything between the header and the possible outputs)
-    ],
-    [
-        # Output Neurons 
-    ],
-    [
-        # Possible Outputs
-    ]
-]
-
-
-exampleNetwork = [
-    {
-        "inputs": ["food_x", "food_y", "blob_x", "blob_y"],
-        "hiddenAF": "step",
-        "outputAF": "mirroredStep",
-    },
-    [
-        {"id": "aaa", "weights": {'food_x': 1}},
-        {"id": "bbb", "weights": {'food_y': 1}},
-        {"id": "ccc", "weights": {'food_x': -1}},
-        {"id": "ddd", "weights": {'food_y': -1}},
-    ],
-    [
-        {"id": "move_right", "weights": {'aaa': 1}},
-        {"id": "move_left", "weights": {'ccc': 1}},
-        {"id": "move_up", "weights": {'bbb': 1}},
-        {"id": "move_down", "weights": {'ddd': 1}},
-    ],
-    [
-        {"id": "move_horizontally", "weights": {'move_right': 1, "move_left": -1}},
-        {"id": "move_vertically", "weights": {'move_up': 1, "move_down": -1}},
-    ],
-    [
-        "move_vertically",
-        "move_horizontally"
-    ]
-]
