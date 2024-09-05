@@ -624,13 +624,15 @@ class Brain():
         
         # Add deepCopy() function
         try:
-            deepCopy()
+            callable(deepCopy)
             self.deepCopy = deepCopy
         except:
+            # for situations where deepCopy is a method of Brain
+            # mostly a legacy catch
             from painet import deepCopy
             self.deepCopy = deepCopy
         
-        # Adds Working Tags
+        # Adds Working Attributes
         self.hiddenAF = network[0]['hiddenAF']
         self.outputAF = network[0]['outputAF']
         self.Inputs = network[0]['inputs']
@@ -739,17 +741,15 @@ class Brain():
 
 #----------------------------------------------------------------------------------
 
-def deepCopy(IN=None):
-    if IN == None:
-        return True
+def deepCopy(IN):
     # Made my own deepCopy function because trinket.io doesn't have one, y'know, as one does
-    if str(type(IN)) == "<class 'dict'>":
+    if type(IN) == dict:
         OUT = {}
         for key in IN.keys():
             value = IN[key]
             copied_value = deepCopy(value)
             OUT[key] = copied_value
-    elif str(type(IN)) == "<class 'list'>":
+    elif type(IN) == list:
         OUT = []
         for item in IN:
             copied_item = deepCopy(item)
