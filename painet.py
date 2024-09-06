@@ -683,7 +683,8 @@ class Brain():
     def run(self, inputs):
         # Check for proper input
         if type(inputs) != dict:
-            raise "Invalid Input: .run() argument must be a dictionary with inputName:value pairs"
+            raise TypeError("Invalid Input: .run() argument must be a dictionary with inputName:value pairs")
+            return None
         # Compute Neurons
         memory = {'B': 1}
         for inputVar in self.Network[0]:

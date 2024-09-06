@@ -1,6 +1,7 @@
 import painet as pn
 
-brain = pn.Brain(pn.exampleNetwork)
+brain = pn.Brain()
+brain.run([])
 
 
 brain.prettyPrintNet(True)
