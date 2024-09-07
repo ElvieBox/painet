@@ -622,7 +622,7 @@ class Brain():
   
     # NeuralNetwork Setup
     #========================
-    def __init__(self, network=defaultNetwork, best=False):
+    def __init__(self, network=defaultNetwork, best=False, afs=None):
         #(math.exp for sigmoid function)
         from math import exp
         self.exp = exp
@@ -649,7 +649,8 @@ class Brain():
         # Sets Up Network
         self.Network = []
         self.Network.append(self.Inputs)
-        self.functions = {}
+
+        # Set Up AFs
         self.AFs = {
             'step':self.step, 
             'linear':self.linear, 
@@ -657,6 +658,7 @@ class Brain():
             'sigmoid':self.sigmoid, 
             'mirroredStep':self.mirroredStep
         }
+        self.addAF(afs)
         
         # Creates Hidden Neurons
         for layer in network[1:-2]:
@@ -675,7 +677,15 @@ class Brain():
         # And yes I know there's self.output and self.Output. It's 12:56 pm and my head hurts, don't yell at me
         self.Network.append(self.Outputs)
         self.outputs = {}       # Brain generated Outputs
-  
+
+
+    def addAF(self, af):
+        if type(af) == function:
+            self.AFs[af.__name__] = af
+        elif type(af) == list or type(af) == tuple:
+            for func in af:
+                self.AFs[func.__name__] = func
+        
   
   
     # Neural Network Output Functions
@@ -727,11 +737,7 @@ class Brain():
         return ppNet
 
 
-    
-    
-    
-    
-    # Activation Functions   
+    # Builtin Activation Functions   
     #=====================
     def step(brain, total):
         if total > 0:
@@ -756,6 +762,9 @@ class Brain():
             return 0
     def sigmoid(brain, total):
         return 1/(1+brain.exp(-total))
+
+
+
 
 
 
