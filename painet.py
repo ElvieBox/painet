@@ -42,7 +42,7 @@ class Environment():
         self.choice = choice
         # Add deepCopy() function
         try:
-            deepCopy()
+            callable(deepCopy)
             self.deepCopy = deepCopy
         except:
             from painet import deepCopy
