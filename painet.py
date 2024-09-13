@@ -54,7 +54,7 @@ class Environment():
         self.Outputs = []
         self.HiddenAF = blankNetwork[0]['hiddenAF']
         self.OutputAF = blankNetwork[0]['outputAF']
-        self.BaseNetwork = deepCopy(blankNetwork)
+        self.BaseNetwork = deepCopy(blankNetwork)      # since changing the blanknetwork, will this be an issue??
         self.MutationType = "multiple"
         self.MutationChance = 0.7
         self.genCount = 0
