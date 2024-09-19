@@ -28,4 +28,6 @@ How Custom AF Works:
   Make a new brain
   Brain.addAF(customAFNameHere)
 
-  
+TODO: Bugtest CustomAF
+  - See update "Did something actually good..."
+

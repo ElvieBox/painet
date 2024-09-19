@@ -680,9 +680,9 @@ class Brain():
 
 
     def addAF(self, af):
-        if type(af) == function:
+        if callable(af):                                # check if function, aka 1 af to add
             self.AFs[af.__name__] = af
-        elif type(af) == list or type(af) == tuple:
+        elif type(af) == list or type(af) == tuple:     # check if list/tuple, aka if 2+ af to add
             for func in af:
                 self.AFs[func.__name__] = func
     
@@ -693,7 +693,7 @@ class Brain():
     def run(self, inputs):
         # Check for proper input
         if type(inputs) != dict:
-            raise TypeError("Invalid Input: .run() argument must be a dictionary with inputName:value pairs")
+            raise TypeError("Invalid Input: .run() argument must be a dictionary in the format {'input_name': float/int_value}")
             return None
         # Compute Neurons
         memory = {'B': 1}

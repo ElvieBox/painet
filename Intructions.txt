@@ -165,7 +165,7 @@ run()
     Returns the outputs as a dictionary with outputName:value pairs
     Argument (dict): Dictionary with inputName:value pairs
     Errors:
-        "Invalid Input: .run() argument must be a dictionary with inputName:value pairs"
+        "Invalid Input: .run() argument must be a dictionary in the format {'input_name': float/int_value}"
     #### Need to add a check for if an input can be inputed or not
 
 #customAF()
