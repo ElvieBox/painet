@@ -591,7 +591,7 @@ exampleNetwork = [
 #----------------------------------------------------------------------------------
 
 class Brain():
-    """NOTE: This class can be imported alongside the deepCopy() function and used completely seperate from the rest of the module"""
+    """NOTE: This class can be used completely seperate from the rest of the module"""
 
 
     defaultNetwork = [
@@ -611,12 +611,12 @@ class Brain():
             self.af = af
             self.weights = data['weights']
             
-        def run(self, memory):
+        def run(self, memory, AFs):
             # Adds up inputs and squashing
             total = 0
             for weight in self.weights:
                 total += memory[weight]*self.weights[weight]
-                memory[self.ID] = self.af(total)
+                memory[self.ID] = AFs[self.af](total)
   
   
   
@@ -685,7 +685,7 @@ class Brain():
         elif type(af) == list or type(af) == tuple:
             for func in af:
                 self.AFs[func.__name__] = func
-        
+    
   
   
     # Neural Network Output Functions
@@ -701,7 +701,7 @@ class Brain():
             memory[inputVar] = inputs[inputVar]
         for layer in self.Network[1:-1]:
             for neuron in layer:
-                neuron.run(memory)
+                neuron.run(memory, self.AFs)
         # Run Through Outputs
         self.outputs.clear()
         for neuron in self.Network[-1]:
