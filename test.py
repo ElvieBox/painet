@@ -7,7 +7,7 @@ brain.run({})
 brain.prettyPrintNet(True)
 
 
-
+pn.Environment
 
 
 # maybe make the af's seperate from the brain
