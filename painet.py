@@ -591,7 +591,7 @@ exampleNetwork = [
 #----------------------------------------------------------------------------------
 
 class Brain():
-    """NOTE: This class can be imported alongside the deepCopy() function and used completely seperate from the rest of the module"""
+    """NOTE: This class can be used completely seperate from the rest of the module"""
 
 
     defaultNetwork = [
@@ -611,18 +611,18 @@ class Brain():
             self.af = af
             self.weights = data['weights']
             
-        def run(self, memory):
+        def run(self, memory, AFs):
             # Adds up inputs and squashing
             total = 0
             for weight in self.weights:
                 total += memory[weight]*self.weights[weight]
-                memory[self.ID] = self.af(total)
+                memory[self.ID] = AFs[self.af](total)
   
   
   
     # NeuralNetwork Setup
     #========================
-    def __init__(self, network=defaultNetwork, best=False):
+    def __init__(self, network=defaultNetwork, best=False, afs=None):
         #(math.exp for sigmoid function)
         from math import exp
         self.exp = exp
@@ -649,7 +649,8 @@ class Brain():
         # Sets Up Network
         self.Network = []
         self.Network.append(self.Inputs)
-        self.functions = {}
+
+        # Set Up AFs
         self.AFs = {
             'step':self.step, 
             'linear':self.linear, 
@@ -657,6 +658,7 @@ class Brain():
             'sigmoid':self.sigmoid, 
             'mirroredStep':self.mirroredStep
         }
+        self.addAF(afs)
         
         # Creates Hidden Neurons
         for layer in network[1:-2]:
@@ -675,7 +677,15 @@ class Brain():
         # And yes I know there's self.output and self.Output. It's 12:56 pm and my head hurts, don't yell at me
         self.Network.append(self.Outputs)
         self.outputs = {}       # Brain generated Outputs
-  
+
+
+    def addAF(self, af):
+        if callable(af):                                # check if function, aka 1 af to add
+            self.AFs[af.__name__] = af
+        elif type(af) == list or type(af) == tuple:     # check if list/tuple, aka if 2+ af to add
+            for func in af:
+                self.AFs[func.__name__] = func
+    
   
   
     # Neural Network Output Functions
@@ -683,14 +693,15 @@ class Brain():
     def run(self, inputs):
         # Check for proper input
         if type(inputs) != dict:
-            raise "Invalid Input: .run() argument must be a dictionary with inputName:value pairs"
+            raise TypeError("Invalid Input: .run() argument must be a dictionary in the format {'input_name': float/int_value}")
+            return None
         # Compute Neurons
         memory = {'B': 1}
         for inputVar in self.Network[0]:
             memory[inputVar] = inputs[inputVar]
         for layer in self.Network[1:-1]:
             for neuron in layer:
-                neuron.run(memory)
+                neuron.run(memory, self.AFs)
         # Run Through Outputs
         self.outputs.clear()
         for neuron in self.Network[-1]:
@@ -726,11 +737,7 @@ class Brain():
         return ppNet
 
 
-    
-    
-    
-    
-    # Activation Functions   
+    # Builtin Activation Functions   
     #=====================
     def step(brain, total):
         if total > 0:
@@ -755,6 +762,9 @@ class Brain():
             return 0
     def sigmoid(brain, total):
         return 1/(1+brain.exp(-total))
+
+
+
 
 
 

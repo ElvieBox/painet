@@ -23,7 +23,11 @@ CustomAF:
 -- 72 chr does not include spaces
 
 
->> Github Test
->> Github Test 2
->> Github Test 3
->> Github Test 4
+How Custom AF Works:
+  Put your customAF's name in the neural network config
+  Make a new brain
+  Brain.addAF(customAFNameHere)
+
+TODO: Bugtest CustomAF
+  - See update "Did something actually good..."
+
