@@ -5,6 +5,7 @@ To Do:
   - Convert Intructions to Markdown and put into README
   - Rework the ReadyAI and figure out how that system currently works and what would be better
   - Figure out an actual use case and make an example environnment
+  - Saving feature for the NN
 
 
 CustomAF:
